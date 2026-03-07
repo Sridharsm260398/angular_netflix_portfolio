@@ -158,7 +158,7 @@ export class PortfolioDataService {
             title: 'ProACT MXDR',
             subtitle: 'SISA Internal Project • Feb 2024 – Present',
             description: 'Designed alert dashboards, incident views, and data tables in Angular 16 for cybersecurity threat management.',
-            image: '/img/proact_mxdr.png',
+            image: '/img/mxdr_1.png',
             imagePosition: 'top',
             link: 'https://www.sisainfosec.com/login/#',
             fullDescription: 'ProACT MXDR is SISA\'s flagship Managed Extended Detection and Response platform. Designed alert dashboards, incident views, and data tables in Angular 16. Consumed threat data APIs and handled real-time data rendering. Enhanced accessibility using WCAG standards to ensure all security analysts can use the platform efficiently.',
