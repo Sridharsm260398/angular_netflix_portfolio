@@ -76,7 +76,7 @@ import { CommonModule } from '@angular/common';
       width: 12vw;
       height: 12vw;
       max-width: 150px;
-      max-height: 150px;
+      max-height: 1500px;
       min-width: 80px;
       min-height: 80px;
       border-radius: 4px;
@@ -117,6 +117,11 @@ import { CommonModule } from '@angular/common';
       from { opacity: 0; transform: scale(1.1); }
       to { opacity: 1; transform: scale(1); }
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(1.1); }
+      to { opacity: 1; transform: scale(1); }
+    }
   `]
 })
 export class ProfilesComponent {
@@ -124,7 +129,7 @@ export class ProfilesComponent {
   constructor(private router: Router) {}
 
   selectProfile(name: string) {
-    // Store in session storage if needed
+    // Store in session storage
     sessionStorage.setItem('profile', name);
     this.router.navigate(['/browse']);
   }

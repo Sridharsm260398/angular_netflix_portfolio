@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
           <li><a (click)="scrollToSection('experience')">Experience</a></li>
           <li><a (click)="scrollToSection('projects')">Projects</a></li>
           <li><a (click)="scrollToSection('skills')">Skills</a></li>
+          <li><a (click)="viewResume.emit()">Resume</a></li>
         </ul>
       </div>
       
@@ -35,7 +36,7 @@ import { Router } from '@angular/router';
         <div class="dropdown" *ngIf="menuOpen" (mouseleave)="menuOpen = false">
           <div class="dd-arrow"></div>
           <a class="dd-item" (click)="switchProfile('Recruiter')">
-            <img src="/img/profile-img2.jpg" class="dd-avatar" /> Recruiter
+            <img src="/img/profile-img2.jpg" class="dd-avatar" /> Sridhar
           </a>
           <a class="dd-item" (click)="switchProfile('Friend')">
             <img src="/img/profile-img.jpg" class="dd-avatar" /> Friend
@@ -183,6 +184,7 @@ import { Router } from '@angular/router';
   `]
 })
 export class NavbarComponent {
+  @Output() public viewResume = new EventEmitter<void>();
   isScrolled = false;
   menuOpen = false;
 

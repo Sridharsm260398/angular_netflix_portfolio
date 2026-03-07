@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -33,11 +33,11 @@ import { CommonModule } from '@angular/common';
         <p class="description">{{ data.bio }}</p>
         
         <div class="buttons">
-          <button class="btn-play" (click)="downloadResume()">
+          <button class="btn-play" (click)="viewResume.emit()">
             <i class="bi bi-play-fill"></i> Resume
           </button>
-          <button class="btn-info" (click)="scrollToContact()">
-            <i class="bi bi-info-circle"></i> Contact Info
+          <button class="btn-info" (click)="downloadResume()">
+            <i class="bi bi-download"></i> Download
           </button>
         </div>
       </div>
@@ -204,6 +204,7 @@ import { CommonModule } from '@angular/common';
 })
 export class HeroComponent {
   @Input() data: any;
+  @Output() public viewResume = new EventEmitter<void>();
 
   downloadResume() {
     const a = document.createElement('a');

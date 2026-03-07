@@ -7,16 +7,18 @@ import { ContentRowComponent } from '../../components/content-row/content-row.co
 import { ContactComponent } from '../../components/contact/contact.component';
 import { DetailModalComponent } from '../../components/detail-modal/detail-modal.component';
 
+import { ResumePreviewComponent } from '../../components/resume-preview/resume-preview.component';
+
 @Component({
   selector: 'app-browse',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, HeroComponent, ContentRowComponent, ContactComponent, DetailModalComponent],
+  imports: [CommonModule, NavbarComponent, HeroComponent, ContentRowComponent, ContactComponent, DetailModalComponent, ResumePreviewComponent],
   template: `
     <div class="browse-container">
-      <app-navbar></app-navbar>
+      <app-navbar (viewResume)="showResume = true"></app-navbar>
       
       <main>
-        <app-hero [data]="heroData"></app-hero>
+        <app-hero [data]="heroData" (viewResume)="showResume = true"></app-hero>
         
         <div class="content-sections">
           <app-content-row 
@@ -38,6 +40,12 @@ import { DetailModalComponent } from '../../components/detail-modal/detail-modal
         [item]="selectedItem"
         (close)="closeModal()">
       </app-detail-modal>
+
+      <!-- Resume Preview Modal -->
+      <app-resume-preview
+        *ngIf="showResume"
+        (close)="showResume = false">
+      </app-resume-preview>
     </div>
   `,
   styles: [`
@@ -63,6 +71,7 @@ export class BrowseComponent implements OnInit {
   contactData: any;
   categories: PortfolioCategory[] = [];
   selectedItem: any = null;
+  public showResume = false;
 
   constructor(private dataService: PortfolioDataService) {}
 
