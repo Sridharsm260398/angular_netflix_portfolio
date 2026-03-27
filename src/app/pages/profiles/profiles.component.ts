@@ -118,9 +118,27 @@ import { CommonModule } from '@angular/common';
       to { opacity: 1; transform: scale(1); }
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(1.1); }
-      to { opacity: 1; transform: scale(1); }
+    @media (max-width: 768px) {
+      .profiles-container {
+        padding: 20px;
+        width: 100%;
+      }
+      .profiles-title {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+      }
+      .profiles-list {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+      }
+      .avatar {
+        width: 28vw;
+        height: 28vw;
+      }
+      .name {
+        font-size: 1rem;
+      }
     }
   `]
 })

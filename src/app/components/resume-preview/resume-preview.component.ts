@@ -182,12 +182,31 @@ import { CommonModule } from '@angular/common';
     .download-btn:hover { background: #b2070f; }
 
     @media (max-width: 900px) {
-      .close-btn { top: 10px; right: 10px; color: #333; font-size: 1.5rem; }
       .modal-overlay { padding: 0; }
-      .modal-content { height: 100%; border-radius: 0; }
+      .modal-content { 
+        width: 100%; 
+        max-width: 100%; 
+        height: 100%; 
+        border-radius: 0; 
+      }
+      .close-btn { 
+        top: 15px; 
+        right: 15px; 
+        color: #333; 
+        font-size: 1.5rem; 
+        z-index: 100;
+        background: rgba(255,255,255,0.8);
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
       .resume-paper { padding: 1.5rem; }
       .exp-header { flex-direction: column; gap: 5px; }
       .contact-info { flex-direction: column; align-items: center; gap: 5px; }
+      header h1 { font-size: 1.8rem; }
     }
   `]
 })
