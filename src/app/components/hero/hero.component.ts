@@ -83,6 +83,7 @@ import { CommonModule } from '@angular/common';
       z-index: 2;
       padding: 0 4%;
       max-width: 44%;
+      margin-top: -6vh; /* Moves the content block slightly up as requested */
       animation: heroIn 0.8s ease-out;
     }
     .badge-row {

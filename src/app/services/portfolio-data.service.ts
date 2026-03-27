@@ -20,6 +20,8 @@ export interface PortfolioItem {
   team?: TeamMember[];
   duration?: string;
   client?: string;
+  video?: string;
+  audio?: string;
 }
 
 export interface PortfolioCategory {
@@ -32,6 +34,9 @@ export interface PortfolioCategory {
   providedIn: 'root'
 })
 export class PortfolioDataService {
+
+  private readonly CINEMATIC_VIDEO = 'https://assets.mixkit.co/videos/preview/mixkit-cyber-security-with-electronic-padlock-and-digital-data-28314-large.mp4';
+  private readonly CINEMATIC_AUDIO = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3'; /* High-energy Action/Tech */
 
   getHeroData() {
     return {
@@ -92,20 +97,38 @@ export class PortfolioDataService {
             highlights: [
               'Built Angular components for ProACT MXDR to visualize threat intelligence and real-time alerts',
               'Integrated REST APIs to display incident timelines and detection data',
-              'Improved UI accessibility and usability for security analysts'
+              'Improved UI accessibility and usability for security analysts',
+              'Collaborated with backend engineers to consume .NET endpoints',
+              'Implemented real-time WebSockets for instant alert notifications'
             ],
-            // team: [
-            //   { name: 'Ravi Kumar', role: 'Tech Lead', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80' },
-            //   { name: 'Priya Sharma', role: 'Backend Dev', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80' },
-            //   { name: 'Arjun Nair', role: 'QA Engineer', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80' },
-            //   { name: 'Sneha Patil', role: 'UI/UX Designer', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80' }
-            // ]
+            team: [
+              { name: 'Sridhar S M', role: 'Lead Frontend Developer', image: '/img/profile-img2.jpg' },
+              { name: 'Shailesh', role: 'Backend Architect', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80' },
+              { name: 'Anand Krishnamurthy', role: 'Senior Security Engineer', image: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=200&q=80' },
+              { name: 'Anantaraj Upadhye', role: 'Backend Developer', image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&q=80' },
+              { name: 'Archarna Marimuthu', role: 'Frontend Developer', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80' },
+              { name: 'Ashish Kumar', role: 'Backend Developer', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80' },
+              { name: 'Bidyut Goswami', role: 'Security Analyst', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80' },
+              { name: 'Fahad S', role: 'DevOps Engineer', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80' },
+              { name: 'Ganeshvel Manigandhi', role: 'QA Automation', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80' },
+              { name: 'Hemanth M', role: 'Frontend Developer', image: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=200&q=80' },
+              { name: 'Neelanjan Mahato', role: 'Security Engineer', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+              { name: 'Pradyumna Kumar Sahu', role: 'Backend Developer', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80' },
+              { name: 'Ramesh Balasubramani', role: 'Senior Developer', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80' },
+              { name: 'Ranga Babu', role: 'Backend Developer', image: 'https://images.unsplash.com/photo-1564564321837-a57b607ce3c0?w=200&q=80' },
+              { name: 'Rudra Mondal', role: 'QA Engineer', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80' },
+              { name: 'Sairani R', role: 'Security Analyst', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80' },
+              { name: 'Yaswanth Reddy', role: 'Backend Developer', image: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e1c6?w=200&q=80' },
+              { name: 'Mahaboobsab Maniyar', role: 'Security Engineer', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' }
+            ],
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
           },
           {
             id: 2,
             title: 'System Engineer',
             subtitle: 'TCS - Central Trust Bank (CTB)',
-            description: 'Developed Angular apps for the TCS BaNCS Payments platform. Deployed Azure environments.',    
+            description: 'Developed Angular apps for the TCS BaNCS Payments platform. Deployed Azure environments.',
             image: '/img/tcs_2.png',
             duration: 'Jan 2024 – Feb 2025',
             client: 'Central Trust Bank (US Client)',
@@ -114,16 +137,24 @@ export class PortfolioDataService {
             highlights: [
               'Built UI for FedNow instant payment features using Angular',
               'Improved data flow using asynchronous API consumption',
-              'Reduced UI transaction times by 10%',
-              'Deployed and managed environments (DEV to PROD) on Azure'
+              'Reduced UI transaction times by 10% through optimized state management',
+              'Deployed and managed environments (DEV to PROD) on Azure',
+              'Ensured strict compliance with banking security protocols'
             ],
-            // team: [
-            //   { name: 'Vikram Singh', role: 'Project Manager', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80' },
-            //   { name: 'Meera Joshi', role: 'Angular Dev', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80' },
-            //   { name: 'Karthik R', role: 'Backend Dev', image: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=200&q=80' },
-            //   { name: 'Ananya Das', role: 'Tester', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80' },
-            //   { name: 'Rohan Mehta', role: 'DevOps', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80' }
-            // ]
+            team: [
+              { name: 'Sridhar S M', role: 'Angular Developer', image: '/img/profile-img2.jpg' },
+              { name: 'Sourabh', role: 'Project Manager', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80' },
+              { name: 'Takshak Bharadwaj', role: 'Senior Angular Dev', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80' },
+              { name: 'Janhavi M', role: 'Backend Dev', image: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=200&q=80' },
+              { name: 'Jagadeesh', role: 'Backend Dev', image: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=200&q=80' },
+              { name: 'Pavithra T M', role: 'Backend Dev', image: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=200&q=80' },
+              { name: 'Ramakrishna ', role: 'Backend Dev', image: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=200&q=80' },
+              { name: 'Neha', role: 'Backend Dev', image: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=200&q=80' },
+              { name: 'Manikandan', role: 'Backend Dev', image: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=200&q=80' },
+              { name: 'Thanmayi', role: 'QA Automation', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80' }
+            ],
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
           },
           {
             id: 3,
@@ -140,13 +171,33 @@ export class PortfolioDataService {
               'Applied lazy loading and code splitting for 20% performance gain',
               'Improved accessibility and cross-device responsiveness',
               'Developed reusable UI modules using Angular 16',
-              'Assisted in Node.js-based authentication flows'
+              'Assisted in Node.js-based authentication flows',
+              'Participated in Agile sprints and maintained code quality'
             ],
-            // team: [
-            //   { name: 'Deepak Verma', role: 'Tech Lead', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80' },
-            //   { name: 'Nisha Gupta', role: 'Sr. Developer', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80' },
-            //   { name: 'Suresh K', role: 'Backend Dev', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' }
-            // ]
+            team: [
+              { name: 'Sridhar S M', role: 'Frontend Engineer', image: '/img/profile-img2.jpg' },
+              { name: 'Nitin Pradhan', role: 'Node.js Dev', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+              { name: 'Swarnanika Behar', role: 'Node.js Dev', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+              { name: 'Deepak M K', role: 'Tech Lead', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80' },
+              { name: 'Manoj T', role: 'Sr. Developer', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80' },
+              { name: 'Chinmay Chinivalar', role: 'Node.js Dev', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+              { name: 'Ganesh P J', role: 'Node.js Dev', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+              { name: 'Mudassir Shaik', role: 'Node.js Dev', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+              { name: 'Ravi Kiran V', role: 'Node.js Dev', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+              { name: 'Biradar Nikita', role: 'Node.js Dev', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+              { name: 'Mahesh Orchu', role: 'Node.js Dev', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+              { name: 'Ravi Patneedi', role: 'Node.js Dev', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+              { name: 'Vinay Reddy C R', role: 'Node.js Dev', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+              { name: 'Puttu Ramu', role: 'Node.js Dev', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+              { name: 'Mahendra Chevla', role: 'Node.js Dev', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+              { name: 'Madhu Reddy', role: 'Node.js Dev', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+              { name: 'Vedanth Kumar', role: 'Node.js Dev', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+              { name: 'Gowtham Gorantla', role: 'Node.js Dev', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+              { name: 'Ashish', role: 'Node.js Dev', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+              { name: 'Abhishek Singh', role: 'Node.js Dev', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+            ],
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
           }
         ]
       },
@@ -162,18 +213,36 @@ export class PortfolioDataService {
             imagePosition: 'top',
             link: 'https://www.sisainfosec.com/login/#',
             fullDescription: 'ProACT MXDR is SISA\'s flagship Managed Extended Detection and Response platform. Designed alert dashboards, incident views, and data tables in Angular 16. Consumed threat data APIs and handled real-time data rendering. Enhanced accessibility using WCAG standards to ensure all security analysts can use the platform efficiently.',
-            techStack: ['Angular 16', 'TypeScript', '.NET APIs', 'WCAG 2.1', 'Real-time WebSockets'],
+            techStack: ['Angular 16', 'TypeScript', '.NET APIs', 'WCAG 2.1', 'Real-time WebSockets', 'RxJS', 'SCSS'],
             highlights: [
               'Designed alert dashboards, incident views, and data tables in Angular 16',
               'Consumed threat data APIs and handled real-time data rendering',
               'Enhanced accessibility using WCAG standards',
-              'Built interactive data visualizations for threat intelligence'
+              'Built interactive data visualizations for threat intelligence',
+              'Implemented custom theming and responsive layouts'
             ],
-            // team: [
-            //   { name: 'Ravi Kumar', role: 'Tech Lead', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80' },
-            //   { name: 'Priya Sharma', role: 'Backend Dev', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80' },
-            //   { name: 'Arjun Nair', role: 'QA Engineer', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80' }
-            // ]
+            team: [
+              { name: 'Sridhar S M', role: 'Lead Frontend Developer', image: '/img/profile-img2.jpg' },
+              { name: 'Shailesh', role: 'Backend Architect', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80' },
+              { name: 'Anand Krishnamurthy', role: 'Senior Security Engineer', image: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=200&q=80' },
+              { name: 'Anantaraj Upadhye', role: 'Backend Developer', image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&q=80' },
+              { name: 'Archarna Marimuthu', role: 'Frontend Developer', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80' },
+              { name: 'Ashish Kumar', role: 'Backend Developer', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80' },
+              { name: 'Bidyut Goswami', role: 'Security Analyst', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80' },
+              { name: 'Fahad S', role: 'DevOps Engineer', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80' },
+              { name: 'Ganeshvel Manigandhi', role: 'QA Automation', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80' },
+              { name: 'Hemanth M', role: 'Frontend Developer', image: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=200&q=80' },
+              { name: 'Neelanjan Mahato', role: 'Security Engineer', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' },
+              { name: 'Pradyumna Kumar Sahu', role: 'Backend Developer', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80' },
+              { name: 'Ramesh Balasubramani', role: 'Senior Developer', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80' },
+              { name: 'Ranga Babu', role: 'Backend Developer', image: 'https://images.unsplash.com/photo-1564564321837-a57b607ce3c0?w=200&q=80' },
+              { name: 'Rudra Mondal', role: 'QA Engineer', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80' },
+              { name: 'Sairani R', role: 'Security Analyst', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80' },
+              { name: 'Yaswanth Reddy', role: 'Backend Developer', image: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e1c6?w=200&q=80' },
+              { name: 'Mahaboobsab Maniyar', role: 'Security Engineer', image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80' }
+            ],
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
           },
           {
             id: 5,
@@ -188,10 +257,8 @@ export class PortfolioDataService {
               'Improved data flow using asynchronous API consumption',
               'Reduced UI transaction times by 10%'
             ],
-            // team: [
-            //   { name: 'Vikram Singh', role: 'Project Manager', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80' },
-            //   { name: 'Meera Joshi', role: 'Angular Dev', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80' }
-            // ]
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
           },
           {
             id: 6,
@@ -206,10 +273,8 @@ export class PortfolioDataService {
               'Applied lazy loading and code splitting for 20% performance gain',
               'Improved accessibility and cross-device responsiveness'
             ],
-            // team: [
-            //   { name: 'Deepak Verma', role: 'Tech Lead', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80' },
-            //   { name: 'Nisha Gupta', role: 'Sr. Developer', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80' }
-            // ]
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
           },
           {
             id: 7,
@@ -225,7 +290,9 @@ export class PortfolioDataService {
               'RESTful API backend with Node.js and Express.js',
               'PostgreSQL database for data persistence',
               'Deployed on Firebase and Render'
-            ]
+            ],
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
           },
           {
             id: 8,
@@ -240,7 +307,9 @@ export class PortfolioDataService {
               'Full REST API documentation with Swagger',
               'Authentication and authorization endpoints',
               'Product and order management APIs'
-            ]
+            ],
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
           }
         ]
       },
@@ -253,8 +322,13 @@ export class PortfolioDataService {
             subtitle: 'JavaScript (ES6+), TypeScript, Angular 16, HTML5, CSS3',
             description: 'Expert-level proficiency in modern frontend frameworks and core web technologies.',
             image: '/img/unsplash/img-3.jpg',
-            fullDescription: 'Deep expertise in building enterprise-grade Angular applications with TypeScript. Proficient in modern JavaScript (ES6+), responsive HTML5/CSS3 layouts, and component-based architecture.',
-            techStack: ['Angular 16', 'TypeScript', 'JavaScript ES6+', 'HTML5', 'CSS3', 'Bootstrap', 'Angular Material']
+            highlights: [
+              'Complete mastery of Angular architectures and components',
+              'State management using RxJS Observables and Signals',
+              'Responsive design implementation with modern CSS capabilities',
+              'Performance optimization strategies for enterprise applications'
+            ],
+            team: [{ name: 'Sridhar S M', role: 'Frontend Expert', image: '/img/profile-img2.jpg' }]
           },
           {
             id: 10,
@@ -262,17 +336,36 @@ export class PortfolioDataService {
             subtitle: 'Node.js, Express.js, PostgreSQL, DB2, MongoDB',
             description: 'Full-stack capabilities with server-side and database expertise.',
             image: '/img/unsplash/img-4.jpg',
+            duration: '2+ Years Exp',
             fullDescription: 'Experienced in building scalable backend services using Node.js and Express.js. Worked with PostgreSQL, DB2, and MongoDB databases for data persistence in financial and cybersecurity applications.',
-            techStack: ['Node.js', 'Express.js', 'PostgreSQL', 'DB2', 'MongoDB', 'REST APIs']
+            techStack: ['Node.js', 'Express.js', 'PostgreSQL', 'DB2', 'MongoDB', 'REST APIs', 'Sequelize', 'Mongoose'],
+            highlights: [
+              'Architected robust RESTful API endpoints for financial and security applications',
+              'Designed complex database schemas using PostgreSQL and MongoDB',
+              'Implemented secure authentication and authorization middleware',
+              'Optimized database queries for high-performance financial transactions'
+            ],
+            team: [{ name: 'Sridhar S M', role: 'Full Stack Dev', image: '/img/profile-img2.jpg' }],
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
           },
           {
             id: 11,
             title: 'Cloud & DevOps',
-            subtitle: 'Azure,AWS, Render, Vercel, JBOSS',
+            subtitle: 'Azure, AWS, Render, Vercel, JBOSS',
             description: 'Cloud-based deployments and environment management across platforms.',
             image: '/img/unsplash/img-5.jpg',
+            duration: 'Continuous Integration',
             fullDescription: 'Deployed and managed enterprise applications across Azure cloud environments. Experience from DEV to PROD pipeline management. Also deployed personal projects using Render, Vercel, and Firebase.',
-            techStack: ['Azure', 'Render', 'Vercel', 'JBOSS', 'Firebase', 'CI/CD']
+            techStack: ['Azure', 'AWS', 'Render', 'Vercel', 'JBOSS', 'Firebase', 'CI/CD', 'Git Actions'],
+            highlights: [
+              'Managed enterprise environments across Azure from DEV to PROD',
+              'Secured seamless pipeline deployments with CI/CD',
+              'Cloud infrastructure management utilizing AWS and Azure tools'
+            ],
+            team: [{ name: 'Sridhar S M', role: 'DevOps & Deployment', image: '/img/profile-img2.jpg' }],
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
           },
           {
             id: 12,
@@ -280,8 +373,17 @@ export class PortfolioDataService {
             subtitle: 'DevTools, SoapUI, WCAG 2.1, Agile/Scrum',
             description: 'Ensuring code quality, accessibility compliance, and agile development practices.',
             image: '/img/unsplash/img-6.jpg',
+            duration: 'Agile Standards',
             fullDescription: 'Committed to code quality through thorough testing with DevTools and SoapUI. WCAG 2.1 accessibility champion. Strong advocate for Agile methodologies including Scrum and Waterfall.',
-            techStack: ['DevTools', 'SoapUI', 'WCAG 2.1', 'Agile', 'Scrum', 'Waterfall', 'Jira']
+            techStack: ['Chrome DevTools', 'SoapUI', 'WCAG 2.1', 'Agile', 'Scrum', 'Waterfall', 'Jira', 'Postman'],
+            highlights: [
+              'Enforced strict WCAG 2.1 accessibility standards across massive banking apps',
+              'Expert API testing implementation using Postman and SoapUI',
+              'Streamlined team communication using Agile/Scrum frameworks'
+            ],
+            team: [{ name: 'Sridhar S M', role: 'Quality Assurance', image: '/img/profile-img2.jpg' }],
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
           }
         ]
       },
@@ -334,7 +436,9 @@ export class PortfolioDataService {
             subtitle: 'SJC Institute of Technology, VTU (2016 – 2020)',
             description: 'Graduated with CGPA 7.66. Strong foundation in engineering principles.',
             image: '/img/sjcit.png',
-            fullDescription: 'Bachelor of Engineering in Electronics and Communication from SJC Institute of Technology, affiliated to Visvesvaraya Technological University (VTU), Bengaluru. Graduated with a CGPA of 7.66.'
+            fullDescription: 'Bachelor of Engineering in Electronics and Communication from SJC Institute of Technology, affiliated to Visvesvaraya Technological University (VTU), Bengaluru. Graduated with a CGPA of 7.66.',
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
           },
           {
             id: 19,
@@ -342,7 +446,9 @@ export class PortfolioDataService {
             subtitle: 'Innovation & Excellence Recognition',
             description: 'Recognized for outstanding innovation and consistent delivery across multiple projects.',
             image: '/img/unsplash/award.jpg',
-            fullDescription: 'Awarded TCS "Star Performer" recognition for innovation and consistent high-quality delivery across multiple banking and payment projects.'
+            fullDescription: 'Awarded TCS "Star Performer" recognition for innovation and consistent high-quality delivery across multiple banking and payment projects.',
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
           },
           {
             id: 20,
