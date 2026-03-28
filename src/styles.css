@@ -16,7 +16,7 @@ body {
   padding: 0;
   background-color: var(--netflix-black);
   color: var(--netflix-white);
-  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -24,6 +24,7 @@ body {
 
 * {
   box-sizing: border-box;
+  letter-spacing: 0.7px;
 }
 
 a {

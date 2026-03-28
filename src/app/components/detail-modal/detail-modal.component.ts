@@ -25,13 +25,16 @@ import { CommonModule } from '@angular/common';
           <video #previewVideo *ngIf="item.video" 
                  class="bg-video" 
                  [class.contain-video]="item.isCertificate"
-                 autoplay loop playsinline 
-                 [muted]="isMuted"
+                 autoplay 
+                 loop 
+                 muted
+                 playsinline 
+                 [muted]="true"
                  [poster]="item.image">
             <source [src]="item.video" type="video/mp4">
           </video>
 
-          <audio #previewAudio *ngIf="item.audio" [src]="item.audio" loop [muted]="isMuted"></audio>
+          <audio #previewAudio *ngIf="item.audio" [src]="item.audio" loop muted [muted]="true"></audio>
           <div class="bg-grad"></div>
         </div>
 
@@ -62,7 +65,7 @@ import { CommonModule } from '@angular/common';
             <p class="desc-text" [class.certificate-desc]="item.isCertificate">{{ item.fullDescription || item.description }}</p>
 
             <div class="highlights-section" *ngIf="item.highlights">
-              <div class="sub-heading">Key Highlights</div>
+              <div class="sub-heading" style="letter-spacing: 1px; color: var(--netflix-red); font-size: 14px; text-transform: uppercase; font-weight: 900;">Key Highlights</div>
               <div class="highlights-grid">
                 <div class="h-card" *ngFor="let h of item.highlights; let i = index" [class.show]="currentSlide >= i">
                   <i class="bi bi-check-circle-fill h-icon"></i>
@@ -101,6 +104,29 @@ import { CommonModule } from '@angular/common';
     </div>
   `,
   styles: [`
+    /* FONT FAMILY (Netflix-like Avenir stack) */
+.content-inner {
+  font-family: Avenir, "Avenir Next", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* LABEL STYLE (Genres:, Cast:) */
+.m-label {
+  font-size: 0.75rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+}
+
+/* VALUE STYLE */
+.m-value {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 0.4px;
+  font-weight: 400;
+}
+
+
     .modal-overlay {
       position: fixed; inset: 0; z-index: 9999;
       background: rgba(0,0,0,0.92); backdrop-filter: blur(8px);
@@ -129,13 +155,21 @@ import { CommonModule } from '@angular/common';
 
     /* Background Layers */
     .bg-layer { position: absolute; inset: 0; z-index: 1; transition: background 0.3s; }
-    .bg-img { position: absolute; inset: 0; background-size: cover; background-position: center top; filter: brightness(0.6); }
+    /* iOS FIX: Ensure bg-img is high enough z-index and has width/height */
+    .bg-img { 
+      position: absolute; inset: 0; 
+      background-size: cover; 
+      background-position: center top; 
+      filter: brightness(0.6);
+      width: 100%; height: 100%;
+      z-index: 2;
+    }
     .bg-img.contain-bg { background-size: contain; background-repeat: no-repeat; background-position: center; filter: brightness(1); }
     .bg-layer.contain-mode { background: #000; }
     .bg-backdrop { position: absolute; inset: -20px; background-size: cover; filter: blur(40px) brightness(0.3); z-index: 0; }
-    .bg-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.5); }
+    .bg-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.5); z-index: 3; }
     .bg-video.contain-video { object-fit: contain; filter: brightness(1); }
-    .bg-grad { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%), linear-gradient(0deg, #141414 5%, transparent 40%); }
+    .bg-grad { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%), linear-gradient(0deg, #141414 5%, transparent 40%); z-index: 4; }
 
     /* Content */
     .content-overlay { position: absolute; inset: 0; z-index: 10; overflow-y: auto; scrollbar-width: none; }
@@ -155,35 +189,23 @@ import { CommonModule } from '@angular/common';
 
     /* Highlights */
     .highlights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
-    /* UPDATED: h-card needs slightly more gap for the h-icon spacing request */
-    .h-card { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px; font-size: 0.9rem; color: #ddd; opacity: 0; transform: translateY(10px); transition: 0.4s; display: flex; align-items: flex-start; gap: 14px; /* Increased from 10/12 to 14px for more space */ }
+    .h-card { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px; font-size: 0.9rem; color: #ddd; opacity: 0; transform: translateY(10px); transition: 0.4s; display: flex; align-items: flex-start; gap: 14px; }
     .h-card.show { opacity: 1; transform: translateY(0); }
-    /* Ensure the icon is explicitly green and stands out, with slight top margin alignment */
     .h-icon { color: #46d369 !important; font-size: 1.1rem; margin-top: 2px; flex-shrink: 0; }
 
-    /* MOBILE DESIGN REHAUL - Keep the improved certificate stack */
+    /* MOBILE DESIGN REHAUL */
     @media (max-width: 768px) {
       .modal-overlay { padding: 0; }
       .full-modal { height: 100vh; border-radius: 0; width: 100%; }
-
-      /* Handle Certificate Stack on Mobile */
       .item-is-certificate.full-modal { display: flex; flex-direction: column; overflow-y: auto; }
-      
-      .item-is-certificate .bg-layer { 
-        position: relative; height: 40vh; flex-shrink: 0; 
-        background: #000; border-bottom: 1px solid #333;
-      }
-      .item-is-certificate .bg-img.contain-bg { width: 95%; height: 95%; }
+      .item-is-certificate .bg-layer { position: relative; height: 40vh; flex-shrink: 0; background: #000; border-bottom: 1px solid #333; }
+      .item-is-certificate .bg-img.contain-bg { width: 95%; height: 95%; margin: auto; }
       .item-is-certificate .bg-grad { background: linear-gradient(0deg, #141414, transparent); }
-      
       .item-is-certificate .content-overlay { position: relative; height: auto; overflow: visible; }
       .item-is-certificate .content-inner { width: 100%; padding: 30px 20px 60px; align-items: center; text-align: center; }
       .item-is-certificate .modal-title { font-size: 1.8rem; }
       .item-is-certificate .action-btns { width: 100%; }
-      /* Button remains as Play but takes prominent color for certificates in mobile stack */
       .item-is-certificate .btn-play { width: 100%; justify-content: center; background: #e50914; color: #fff; }
-
-      /* General Mobile Adjustments */
       .content-inner { width: 100%; padding: 40px 20px; }
       .modal-title { font-size: 2.2rem; }
       .highlights-grid { grid-template-columns: 1fr; }
@@ -209,11 +231,16 @@ export class DetailModalComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+    // iOS FIX: Ensure video is explicitly played and muted via JS
     if (this.item?.video && this.previewVideo) {
-      this.previewVideo.nativeElement.play().catch(() => { });
+      const video = this.previewVideo.nativeElement;
+      video.muted = true;
+      video.play().catch(err => console.log("Video auto-play blocked", err));
     }
     if (this.item?.audio && this.previewAudio) {
-      this.previewAudio.nativeElement.play().catch(() => { });
+      const audio = this.previewAudio.nativeElement;
+      audio.muted = true;
+      audio.play().catch(err => console.log("Audio auto-play blocked", err));
     }
   }
 
@@ -238,15 +265,33 @@ export class DetailModalComponent implements OnInit, AfterViewInit, OnDestroy {
   toggleMute(event: Event) {
     event.stopPropagation();
     this.isMuted = !this.isMuted;
-    if (this.previewVideo) this.previewVideo.nativeElement.muted = this.isMuted;
+
+    // iOS FIX: We must explicitly toggle the native property
+    if (this.previewVideo) {
+      this.previewVideo.nativeElement.muted = this.isMuted;
+    }
+
     if (this.previewAudio) {
-      this.previewAudio.nativeElement.muted = this.isMuted;
-      if (!this.isMuted) this.previewAudio.nativeElement.play().catch(() => { });
+      const audio = this.previewAudio.nativeElement;
+      audio.muted = this.isMuted;
+      // If we are unmuting, we MUST call play() because iOS pauses media if it was muted by system
+      if (!this.isMuted) {
+        audio.play().catch(() => {
+          // If it fails, usually means user interaction hasn't happened yet
+          console.log("Audio unmute failed");
+        });
+      }
     }
   }
 
   onContinueClick(event: Event) {
     event.stopPropagation();
+    // iOS UX: When they click "Continue", we can safely unmute because it's a user gesture
+    this.isMuted = false;
+    if (this.previewAudio) {
+      this.previewAudio.nativeElement.muted = false;
+      this.previewAudio.nativeElement.play();
+    }
     if (this.item.link) window.open(this.item.link, '_blank');
   }
 
