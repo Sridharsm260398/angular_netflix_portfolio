@@ -6,24 +6,40 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="row-container">
-      <h2 class="row-title">{{ title }}</h2>
+    <div class="row-container" [class.full-stretch]="fullStretch">
+      <h2 class="row-title" *ngIf="title" [style.paddingLeft]="fullStretch ? '4%' : '0'">{{ title }}</h2>
       <div class="slider-wrapper" (mouseenter)="showControls = true" (mouseleave)="showControls = false">
         
         <button class="nav-btn left" (click)="scrollLeft()" [class.show]="showControls && canScrollLeft">
           <i class="bi bi-chevron-left"></i>
         </button>
 
-        <div class="slider" #slider (scroll)="checkScroll()">
+        <div class="slider" #slider (scroll)="checkScroll()" 
+             [class.poster-row]="rowType === 'poster'"
+             [class.wide-row]="rowType === 'wide'"
+             [class.full-stretch-slider]="fullStretch">
           <div class="card" 
                *ngFor="let item of items; let i = index" 
+               [class.poster-card]="rowType === 'poster'"
+               [class.wide-card]="rowType === 'wide'"
                (click)="onItemClick(item)"
                (mousemove)="onCardMove($event, i)"
                (mouseleave)="onCardLeave(i)">
             
             <div class="card-inner" [id]="getRowUniqueId(i)">
-              <div class="card-img" [style.backgroundImage]="'url(' + item.image + ')'"
-                   [style.backgroundPosition]="item.imagePosition || 'center'">
+              <div class="card-img" 
+                   [class.poster-img]="rowType === 'poster'"
+                   [class.wide-img]="rowType === 'wide'">
+                
+                <!-- Blurred Backdrop for Wide Cards (Full View) -->
+                <div class="wide-backdrop" *ngIf="rowType === 'wide'" [style.backgroundImage]="'url(' + item.image + ')'"></div>
+                
+                <!-- Sharp Image Layer -->
+                <div class="sharp-img" 
+                     [style.backgroundImage]="'url(' + item.image + ')'"
+                     [style.backgroundPosition]="item.imagePosition || 'center'"
+                     [class.contain-mode]="rowType === 'wide'">
+                </div>
                 
                 <div *ngIf="isRanked" class="rank-badge">{{ i + 1 }}</div>
 
@@ -63,6 +79,14 @@ import { CommonModule } from '@angular/common';
       margin-bottom: 3rem;
       padding: 0 4%;
       perspective: 1200px;
+      transition: padding 0.3s;
+    }
+    .row-container.full-stretch {
+      padding: 0;
+    }
+    .full-stretch-slider {
+      padding-left: 4% !important;
+      padding-right: 4% !important;
     }
     .row-title {
       font-size: 1.4rem;
@@ -97,6 +121,18 @@ import { CommonModule } from '@angular/common';
       transform: scale(1.08);
       z-index: 10;
     }
+    .card.poster-card {
+      flex: 0 0 calc(100% / 7.5); /* Leaner for vertical look */
+      min-width: 165px;
+    }
+    .card.poster-card:hover { transform: scale(1.06); }
+    
+    /* Wide horizontal cards (for certificates) */
+    .card.wide-card {
+      flex: 0 0 calc(100% / 3.2);
+      min-width: 300px;
+    }
+    .card.wide-card:hover { transform: scale(1.05); }
 
     .card-inner {
       border-radius: 6px;
@@ -117,6 +153,33 @@ import { CommonModule } from '@angular/common';
       background-position: center;
       position: relative;
       overflow: hidden;
+    }
+    .card-img.poster-img {
+      height: 240px; /* Poster aspect ratio */
+    }
+    .card-img.wide-img {
+      height: 200px; /* More vertical space for full view */
+      background-color: transparent; 
+    }
+    .sharp-img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      z-index: 2;
+    }
+    .sharp-img.contain-mode {
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    .wide-backdrop {
+      position: absolute;
+      inset: -15px;
+      background-size: cover;
+      background-position: center;
+      filter: blur(20px) brightness(0.4);
+      z-index: 1;
+      transform: scale(1.1);
     }
 
     /* Shimmer sweep on hover */
@@ -216,6 +279,9 @@ import { CommonModule } from '@angular/common';
       .card:hover { transform: none; }
       .card:hover .card-inner { box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
       .hover-play { display: none !important; }
+      
+      .card.wide-card { flex: 0 0 85%; min-width: 260px; }
+      .card-img.wide-img { height: 150px; }
     }
   `]
 })
@@ -223,6 +289,8 @@ export class ContentRowComponent {
   @Input() title: string = '';
   @Input() items: any[] = [];
   @Input() isRanked: boolean = false;
+  @Input() rowType: 'standard' | 'poster' | 'wide' = 'standard';
+  @Input() fullStretch: boolean = false;
   @Output() itemClicked = new EventEmitter<any>();
 
   @ViewChild('slider') slider!: ElementRef;

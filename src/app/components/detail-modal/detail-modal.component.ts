@@ -15,12 +15,19 @@ import { CommonModule } from '@angular/common';
         <button class="close-btn" (click)="close.emit()"><i class="bi bi-x-lg"></i></button>
 
         <!-- Background Image/Video Layer -->
-        <div class="bg-layer">
-          <div class="bg-img" *ngIf="!item.video" [class.ken-burns]="isAnimating" [style.backgroundImage]="'url(' + item.image + ')'"></div>
+        <div class="bg-layer" [class.contain-mode]="item.isCertificate">
+          <!-- Blurred Backdrop for Certificates -->
+          <div class="bg-backdrop" *ngIf="item.isCertificate" [style.backgroundImage]="'url(' + item.image + ')'"></div>
+          
+          <div class="bg-img" *ngIf="!item.video" 
+               [class.ken-burns]="isAnimating && !item.isCertificate" 
+               [class.contain-bg]="item.isCertificate"
+               [style.backgroundImage]="'url(' + item.image + ')'"></div>
           
           <!-- Cinematic Video Preview -->
           <video #previewVideo *ngIf="item.video" 
                  class="bg-video" 
+                 [class.contain-video]="item.isCertificate"
                  autoplay 
                  loop 
                  playsinline 
@@ -45,10 +52,10 @@ import { CommonModule } from '@angular/common';
         </button>
 
         <!-- Left-anchored Content Overlay -->
-        <div class="content-overlay">
-          <div class="content-inner">
+        <div class="content-overlay" [class.certificate-overlay]="item.isCertificate">
+          <div class="content-inner" [class.certificate-inner]="item.isCertificate">
             
-            <h1 class="modal-title">{{ item.title }}</h1>
+            <h1 class="modal-title" [class.certificate-title]="item.isCertificate">{{ item.title }}</h1>
 
             <div class="meta-line">
               <span class="match">98% Match</span>
@@ -65,7 +72,7 @@ import { CommonModule } from '@angular/common';
             </div>
 
             <!-- Description -->
-            <p class="desc-text">{{ item.fullDescription || item.description }}</p>
+            <p class="desc-text" [class.certificate-desc]="item.isCertificate">{{ item.fullDescription || item.description }}</p>
 
             <!-- Animated Highlight Points -->
             <div class="highlights-section" *ngIf="item.highlights">
@@ -104,7 +111,7 @@ import { CommonModule } from '@angular/common';
         <button class="close-btn" (click)="close.emit()"><i class="bi bi-x-lg"></i></button>
         
         <div class="preview-img-wrap">
-          <img [src]="item.image" class="preview-img" alt="Preview" />
+          <img [src]="item.image" class="preview-img" alt="Preview" style="object-fit: contain; background: #000; height: 300px;" />
           <div class="preview-grad"></div>
         </div>
 
@@ -148,7 +155,7 @@ import { CommonModule } from '@angular/common';
        FULL EXPERIENCE MODAL — Netflix Reference Layout
        ========================================================= */
     .full-modal {
-      position: relative; width: 100%; max-width: 1300px; height: 88vh;
+      position: relative; width: 95%; max-width: 1600px; height: 92vh;
       border-radius: 10px; overflow: hidden; background: #141414;
       box-shadow: 0 20px 60px rgba(0,0,0,0.95);
       animation: scaleIn 0.35s cubic-bezier(0.23,1,0.32,1);
@@ -165,6 +172,22 @@ import { CommonModule } from '@angular/common';
       background-size: cover; background-position: center top;
       filter: brightness(0.55);
     }
+    .bg-img.contain-bg {
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: brightness(1); /* Full brightness for documents */
+    }
+    .bg-layer.contain-mode { background: #000; }
+    .bg-backdrop {
+      position: absolute;
+      inset: -20px;
+      background-size: cover;
+      background-position: center;
+      filter: blur(30px) brightness(0.3);
+      z-index: 0;
+      transform: scale(1.1);
+    }
     .bg-img.ken-burns { animation: kb 20s ease-out infinite alternate; }
     @keyframes kb {
       0% { transform: scale(1); }
@@ -176,6 +199,10 @@ import { CommonModule } from '@angular/common';
       position: absolute; inset: 0;
       width: 100%; height: 100%; object-fit: cover;
       filter: brightness(0.45);
+    }
+    .bg-video.contain-video {
+      object-fit: contain;
+      filter: brightness(1); /* Full brightness for documents */
     }
 
     .mute-btn {
@@ -209,12 +236,23 @@ import { CommonModule } from '@angular/common';
       display: flex; flex-direction: column; gap: 18px;
       justify-content: flex-end;
     }
+    .content-inner.certificate-inner {
+      width: 45%; /* Narrower to stay on the left */
+      padding-top: 60px; /* At the top */
+      justify-content: flex-start; /* Move to top */
+      gap: 12px;
+    }
 
     .modal-title {
       font-size: 4rem; font-weight: 900; margin: 0; line-height: 1.05;
       font-family: 'Outfit', sans-serif; text-transform: uppercase;
       text-shadow: 0 4px 20px rgba(0,0,0,0.9);
       color: #fff;
+    }
+    .modal-title.certificate-title {
+      font-size: 1.8rem; /* Smaller */
+      text-transform: none; 
+      margin-bottom: 5px;
     }
 
     .meta-line {
@@ -245,8 +283,13 @@ import { CommonModule } from '@angular/common';
 
     /* Description */
     .desc-text {
-      font-size: 1.05rem; line-height: 1.65; color: #e0e0e0; margin: 0;
+      font-size: 1.05rem; line-height: 1.6; color: #e0e0e0; margin: 0;
       text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+      max-width: 95%; /* Prevent long lines */
+    }
+    .desc-text.certificate-desc {
+      font-size: 0.95rem;
+      max-width: 85%;
     }
 
     /* Highlights Section */
@@ -255,18 +298,28 @@ import { CommonModule } from '@angular/common';
       color: #e50914; font-weight: 700; margin-bottom: 12px;
     }
     .highlights-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 12px 20px; 
+      margin-top: 10px;
     }
     .h-card {
       display: flex; align-items: flex-start; gap: 10px;
-      padding: 10px 14px; border-radius: 5px;
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
-      font-size: 0.9rem; color: #ddd; line-height: 1.4;
-      opacity: 0; transform: translateY(12px);
+      padding: 10px 16px; border-radius: 6px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.85rem; color: #eee; line-height: 1.4;
+      opacity: 0; transform: translateY(15px);
       transition: all 0.5s cubic-bezier(0.23,1,0.32,1);
     }
     .h-card.show { opacity: 1; transform: translateY(0); }
-    .h-icon { color: #46d369; font-size: 0.95rem; margin-top: 2px; flex-shrink: 0; }
+
+    /* Zig Zag Offset Logic */
+    .h-card:nth-child(even) { margin-left: 20px; transform: translateY(15px) translateX(10px); }
+    .h-card:nth-child(even).show { transform: translateY(0) translateX(10px); }
+    .h-card:nth-child(odd) { margin-right: 20px; transform: translateY(15px) translateX(-10px); }
+    .h-card:nth-child(odd).show { transform: translateY(0) translateX(-10px); }
+
+    .h-icon { color: #46d369; font-size: 1rem; margin-top: 2px; flex-shrink: 0; }
 
     /* Footer Meta */
     .footer-meta {
@@ -315,7 +368,9 @@ import { CommonModule } from '@angular/common';
       .content-inner { width: 100%; padding: 40px 24px 30px; }
       .bg-grad { background: linear-gradient(0deg, rgba(20,20,20,0.98) 30%, rgba(20,20,20,0.7) 60%, transparent 100%); }
       .modal-title { font-size: 2.5rem; }
-      .highlights-grid { grid-template-columns: 1fr; }
+      .highlights-grid { grid-template-columns: 1fr; gap: 10px; }
+      .h-card:nth-child(even), .h-card:nth-child(odd) { margin: 0; transform: translateY(15px); }
+      .h-card:nth-child(even).show, .h-card:nth-child(odd).show { transform: translateY(0); }
       .action-btns { flex-direction: column; width: 100%; }
       .btn-play, .btn-list { width: 100%; justify-content: center; }
       .preview-modal { max-width: 100%; border-radius: 0; }

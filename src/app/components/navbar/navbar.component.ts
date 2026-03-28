@@ -70,7 +70,12 @@ import { Router } from '@angular/router';
       z-index: 1000;
       background: linear-gradient(to bottom, rgba(0,0,0,0.7) 10%, transparent);
     }
-    nav.scrolled { background: #141414; }
+    nav.scrolled { 
+      background: rgba(20, 20, 20, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
     .nav-left, .nav-right { display: flex; align-items: center; }
 

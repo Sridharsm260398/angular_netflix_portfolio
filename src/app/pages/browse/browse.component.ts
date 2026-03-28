@@ -8,13 +8,15 @@ import { ContactComponent } from '../../components/contact/contact.component';
 import { DetailModalComponent } from '../../components/detail-modal/detail-modal.component';
 
 import { ResumePreviewComponent } from '../../components/resume-preview/resume-preview.component';
+import { BackdropComponent } from '../../components/backdrop/backdrop.component';
 
 @Component({
   selector: 'app-browse',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, HeroComponent, ContentRowComponent, ContactComponent, DetailModalComponent, ResumePreviewComponent],
+  imports: [CommonModule, NavbarComponent, HeroComponent, ContentRowComponent, ContactComponent, DetailModalComponent, ResumePreviewComponent, BackdropComponent],
   template: `
     <div class="browse-container">
+      <app-backdrop></app-backdrop>
       <app-navbar (viewResume)="showResume = true"></app-navbar>
       
       <main>
@@ -27,6 +29,8 @@ import { ResumePreviewComponent } from '../../components/resume-preview/resume-p
             [title]="category.title"
             [items]="category.items"
             [isRanked]="!!category.isRanked"
+            [rowType]="category.title.includes('Education') ? 'wide' : 'standard'"
+            [fullStretch]="category.title.includes('Education')"
             (itemClicked)="openModal($event)">
           </app-content-row>
         </div>
@@ -50,10 +54,11 @@ import { ResumePreviewComponent } from '../../components/resume-preview/resume-p
   `,
   styles: [`
     .browse-container {
-      background-color: var(--netflix-black);
+      background-color: transparent;
       min-height: 100vh;
       color: var(--netflix-white);
       animation: fadeIn 0.8s ease-in-out;
+      position: relative;
     }
     .content-sections {
       position: relative;
@@ -73,7 +78,7 @@ export class BrowseComponent implements OnInit {
   selectedItem: any = null;
   public showResume = false;
 
-  constructor(private dataService: PortfolioDataService) {}
+  constructor(private dataService: PortfolioDataService) { }
 
   ngOnInit() {
     this.heroData = this.dataService.getHeroData();

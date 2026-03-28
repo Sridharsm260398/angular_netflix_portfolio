@@ -1,0 +1,23 @@
+:host {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    background: transparent;
+    overflow: hidden;
+}
+
+canvas {
+    display: block;
+    opacity: 0.6;
+    filter: blur(2px);
+    transition: opacity 1s ease-in-out;
+}
+
+:host-context(.light-theme) canvas {
+    opacity: 0.3;
+}

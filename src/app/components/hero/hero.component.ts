@@ -58,7 +58,7 @@ import { CommonModule } from '@angular/common';
       display: flex;
       align-items: center;
       overflow: hidden;
-      background: #141414;
+      background: transparent;
     }
     .hero-bg {
       position: absolute;
@@ -74,9 +74,10 @@ import { CommonModule } from '@angular/common';
       inset: 0;
       z-index: 1;
       background:
-        linear-gradient(to right, rgba(20,20,20,0.95) 0%, rgba(20,20,20,0.6) 35%, transparent 65%),
-        linear-gradient(to top, #141414 0%, rgba(20,20,20,0.7) 20%, transparent 50%),
-        linear-gradient(to bottom, rgba(20,20,20,0.6) 0%, transparent 10%);
+      background:
+        linear-gradient(to right, rgba(20,20,20,0.85) 0%, rgba(20,20,20,0.4) 35%, transparent 65%),
+        linear-gradient(to top, rgba(20,20,20,0.9) 0%, rgba(20,20,20,0.4) 20%, transparent 50%),
+        linear-gradient(to bottom, rgba(20,20,20,0.4) 0%, transparent 10%);
     }
     .hero-body {
       position: relative;
@@ -180,7 +181,7 @@ import { CommonModule } from '@angular/common';
       left: 0;
       right: 0;
       height: 120px;
-      background: linear-gradient(to top, #141414, transparent);
+      background: linear-gradient(to top, rgba(20,20,20,0.95), transparent);
       z-index: 2;
     }
 

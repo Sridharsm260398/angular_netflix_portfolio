@@ -36,13 +36,13 @@ import { CommonModule } from '@angular/common';
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy;2026 Sridhar S M — Where Code Meets the Netflix Experience.</p>
+        <p>&copy;2026 Sridhar S M — Crafting Digital Experiences Worth Watching.</p>
       </div>
     </footer>
   `,
   styles: [`
     .footer-container {
-      padding: 4rem 4% 2rem;
+      padding:10px 20px;
       background-color: var(--netflix-black);
       color: var(--netflix-gray);
       border-top: 1px solid #333;
@@ -52,7 +52,6 @@ import { CommonModule } from '@angular/common';
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 2rem;
-      margin-bottom: 2rem;
     }
     .footer-col h4 {
       color: #e5e5e5;
@@ -111,7 +110,6 @@ import { CommonModule } from '@angular/common';
 
     .footer-bottom {
       border-top: 1px solid #333;
-      padding-top: 1.5rem;
       text-align: center;
       font-size: 0.75rem;
       color: #555;

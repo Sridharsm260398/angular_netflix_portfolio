@@ -22,6 +22,7 @@ export interface PortfolioItem {
   client?: string;
   video?: string;
   audio?: string;
+  isCertificate?: boolean;
 }
 
 export interface PortfolioCategory {
@@ -436,26 +437,149 @@ export class PortfolioDataService {
             subtitle: 'SJC Institute of Technology, VTU (2016 – 2020)',
             description: 'Graduated with CGPA 7.66. Strong foundation in engineering principles.',
             image: '/img/sjcit.png',
+            isCertificate: true,
             fullDescription: 'Bachelor of Engineering in Electronics and Communication from SJC Institute of Technology, affiliated to Visvesvaraya Technological University (VTU), Bengaluru. Graduated with a CGPA of 7.66.',
             video: this.CINEMATIC_VIDEO,
             audio: this.CINEMATIC_AUDIO
           },
           {
             id: 19,
-            title: 'TCS "Star Performer" Award',
-            subtitle: 'Innovation & Excellence Recognition',
-            description: 'Recognized for outstanding innovation and consistent delivery across multiple projects.',
-            image: '/img/unsplash/award.jpg',
-            fullDescription: 'Awarded TCS "Star Performer" recognition for innovation and consistent high-quality delivery across multiple banking and payment projects.',
+            title: 'SISA Spot Award',
+            subtitle: 'Q3 FY 2025-26 • Feb 2026',
+            description: 'Excellence in performance for the third quarter of fiscal year 2025-26.',
+            image: '/img/IMG_7588.jpg',
+            isCertificate: true,
+            fullDescription: 'Awarded the SISA Spot Award for the third quarter of FY 2025-26 by CEO Dharshan Shanthamurthy for exceptional performance and dedication.',
+            highlights: [
+              'Awarded by Dharshan Shanthamurthy (CEO)',
+              'Quarterly Excellence Recognition (Q3)',
+              'Outstanding performance in cybersecurity projects'
+            ],
             video: this.CINEMATIC_VIDEO,
             audio: this.CINEMATIC_AUDIO
           },
           {
             id: 20,
-            title: 'Languages',
-            subtitle: 'English, Kannada, Telugu',
-            description: 'Multilingual communicator adept at working with diverse global teams.',
-            image: '/img/unsplash/languages.jpg'
+            title: 'SISA Certificate of Appreciation',
+            subtitle: 'Spot Award • April FY 2025-26',
+            description: 'Recognized for receiving the "Spot Award" for exceptional contributions in April.',
+            image: '/img/IMG_7589.jpg',
+            isCertificate: true,
+            fullDescription: 'Received a Certificate of Appreciation for the Spot Award in April FY 2025-26, recognizing consistent high-impact performance with SISA.',
+            highlights: [
+              'Monthly Spot Award Recognition',
+              'Certificate of Appreciation for excellence',
+              'Awarded by SISA Leadership'
+            ],
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
+          },
+          {
+            id: 21,
+            title: 'SISA Work Anniversary',
+            subtitle: 'Growing with SISA • 2025',
+            description: 'Celebrating a year of growth and high-quality work with SISA Information Security.',
+            image: '/img/IMG_7587.jpg',
+            isCertificate: true,
+            fullDescription: 'Recognized by SISA for reaching a work anniversary and for consistent growth and good work within the cybersecurity domain.',
+            highlights: [
+              'Work Anniversary Recognition',
+              'Acknowledged for consistent growth',
+              'Contribution to forensic-driven cybersecurity'
+            ],
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
+          },
+          {
+            id: 22,
+            title: 'TCS Special Achievement Award',
+            subtitle: 'Outstanding Contribution • Mar 2023',
+            description: 'Recognized for outstanding contribution to the organization as an inspiring role model.',
+            image: '/img/IMG_7582.jpg',
+            isCertificate: true,
+            fullDescription: 'Awarded the TCS Special Achievement Award in appreciation of outstanding contribution to the organization. Recognized as an inspiring role model to colleagues for dedication and commitment to excellence.',
+            highlights: [
+              'Awarded by Milind Lakkad (Executive VP & Global Head HR)',
+              'Recognized for outstanding contribution to the organization',
+              'Cited as an inspiring role model for colleagues'
+            ],
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
+          },
+          {
+            id: 23,
+            title: 'TCS Service and Commitment Award',
+            subtitle: '3 Years of Dedicated Service • Dec 2024',
+            description: 'Celebrating 3 years of dedicated service and commitment to Tata Consultancy Services.',
+            image: '/img/IMG_7583.jpg',
+            isCertificate: true,
+            fullDescription: 'Awarded in recognition of 3 years of dedicated service to Tata Consultancy Services. This award celebrates long-term commitment and consistent performance within the organization.',
+            highlights: [
+              'Milestone: 3 Years of dedicated service',
+              'Recognized for long-term organizational commitment',
+              'Awarded on 23-Dec-2024'
+            ],
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
+          },
+          {
+            id: 24,
+            title: 'TCS On The Spot Award',
+            subtitle: 'Innovation & Excellence • Apr 2024',
+            description: 'Recognized for immediate excellence and role model behavior in project delivery.',
+            image: '/img/IMG_7584.jpg',
+            isCertificate: true,
+            fullDescription: 'Awarded the "On The Spot Award" by TCS Gems in appreciation of outstanding contribution and for being an inspiring role model to colleagues.',
+            highlights: [
+              'Instant recognition for outstanding performance',
+              'Awarded by Global Head of HR',
+              'Recognized for role model behavior'
+            ],
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
+          },
+          {
+            id: 25,
+            title: 'TCS Learning Achievement Award',
+            subtitle: 'Continuous Skill Mastery • Mar 2023',
+            description: 'Recognized for exceptional commitment to continuous learning and skill development.',
+            image: '/img/IMG_7585.jpg',
+            isCertificate: true,
+            fullDescription: 'Awarded the Learning Achievement Award by TCS Gems for demonstrating an outstanding commitment to continuous learning and upgrading technical expertise.',
+            highlights: [
+              'Recognized for continuous learning mindset',
+              'Achievement in technical skill mastery',
+              'Awarded on 23-Mar-2023'
+            ],
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
+          },
+          {
+            id: 26,
+            title: 'TCS Xcelerate Warrior',
+            subtitle: 'Career Journey Milestone',
+            description: 'Gaining this title kickstarts a journey towards achieving high professional aspirations.',
+            image: '/img/IMG_7586.jpg',
+            isCertificate: true,
+            fullDescription: 'Achieved the title of "Xcelerate Warrior" within the TCS ecosystem, signifying a high-potential career trajectory and commitment to achieving professional goals.',
+            highlights: [
+              'Title: Xcelerate Warrior',
+              'Recognized for career journey momentum',
+              'Milestone in professional development'
+            ],
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
+          },
+          {
+            id: 27,
+            title: 'TCS "Star Performer" Award',
+            subtitle: 'Innovation & Excellence Recognition',
+            description: 'Recognized for outstanding innovation and consistent delivery across multiple projects.',
+            image: '/img/unsplash/award.jpg',
+            isCertificate: true,
+            fullDescription: 'Awarded TCS "Star Performer" recognition for innovation and consistent high-quality delivery across multiple banking and payment projects.',
+            video: this.CINEMATIC_VIDEO,
+            audio: this.CINEMATIC_AUDIO
           }
         ]
       }
